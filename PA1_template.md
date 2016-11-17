@@ -17,6 +17,8 @@ str(activity)
 ##  $ interval: int  0 5 10 15 20 25 30 35 40 45 ...
 ```
 
+No preprocessing is necessary. The columns of the data already have sensible names. There are NAs in the data but we'll take care of them later.
+
 ## What is mean total number of steps taken per day?
 
 Group first by date, then summarize by counting the number of steps for each group:
@@ -160,7 +162,7 @@ median(steps.per.day.without.nas$total.n.steps)
 ## [1] 10395
 ```
 
-The histogram looks very similar to the one of the original data. The median is even exactly the same. Only the mean is slightly different. This means that imputting missing values only has a small effect on the estimates of the total number of steps per day.
+The histogram looks very similar to the one of the original data. The median is even exactly the same. Only the mean is slightly different. This means that imputing missing values only has a small effect on the estimates of the total number of steps per day.
 
 ## Are there differences in activity patterns between weekdays and weekends?
 
@@ -185,8 +187,6 @@ Using lattice, we can now create a panel plot that compares the number of steps 
 
 
 ```r
-library(lattice)
-
 sum(is.na(activity.without.nas$step))
 ```
 
@@ -207,6 +207,7 @@ activity.patterns <- activity.without.nas %>%
     group_by(interval, part.of.week) %>%
     summarize(mean.total.n.steps = mean(steps))
 
+library(lattice)
 with(activity.patterns,
      xyplot(mean.total.n.steps ~ interval | part.of.week, layout = c(1, 2),
             type = "l",
@@ -217,3 +218,4 @@ with(activity.patterns,
 ![](./PA1_template_files/figure-html/panel plot activity patterns-1.png)<!-- -->
 
 It seems that on a weekday the person walks more in eary morning to get to work. However, the person walks more often during the day on weekends so it's probably an office worker. On weekends the person also walks more in the evening, so either going to bed earlier or staying in front of the TV more often on weekdays.
+

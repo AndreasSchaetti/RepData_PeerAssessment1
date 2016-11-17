@@ -64,6 +64,7 @@ str(activity)</code></pre>
 ##  $ steps   : int  NA NA NA NA NA NA NA NA NA NA ...
 ##  $ date    : Factor w/ 61 levels &quot;2012-10-01&quot;,&quot;2012-10-02&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...
 ##  $ interval: int  0 5 10 15 20 25 30 35 40 45 ...</code></pre>
+<p>No preprocessing is necessary. The columns of the data already have sensible names. There are NAs in the data but we’ll take care of them later.</p>
 </div>
 <div id="what-is-mean-total-number-of-steps-taken-per-day" class="section level2">
 <h2>What is mean total number of steps taken per day?</h2>
@@ -139,7 +140,7 @@ hist(steps.per.day.without.nas$total.n.steps,
 <pre><code>## [1] 9503.869</code></pre>
 <pre class="r"><code>median(steps.per.day.without.nas$total.n.steps)</code></pre>
 <pre><code>## [1] 10395</code></pre>
-<p>The histogram looks very similar to the one of the original data. The median is even exactly the same. Only the mean is slightly different. This means that imputting missing values only has a small effect on the estimates of the total number of steps per day.</p>
+<p>The histogram looks very similar to the one of the original data. The median is even exactly the same. Only the mean is slightly different. This means that imputing missing values only has a small effect on the estimates of the total number of steps per day.</p>
 </div>
 <div id="are-there-differences-in-activity-patterns-between-weekdays-and-weekends" class="section level2">
 <h2>Are there differences in activity patterns between weekdays and weekends?</h2>
@@ -153,9 +154,7 @@ table(activity.without.nas$part.of.week)</code></pre>
 ## weekday weekend 
 ##   12960    4608</code></pre>
 <p>Using lattice, we can now create a panel plot that compares the number of steps per interval averaged over weekdays and weekends:</p>
-<pre class="r"><code>library(lattice)
-
-sum(is.na(activity.without.nas$step))</code></pre>
+<pre class="r"><code>sum(is.na(activity.without.nas$step))</code></pre>
 <pre><code>## [1] 0</code></pre>
 <pre class="r"><code>sum(is.na(activity.without.nas))</code></pre>
 <pre><code>## [1] 0</code></pre>
@@ -163,6 +162,7 @@ sum(is.na(activity.without.nas$step))</code></pre>
     group_by(interval, part.of.week) %&gt;%
     summarize(mean.total.n.steps = mean(steps))
 
+library(lattice)
 with(activity.patterns,
      xyplot(mean.total.n.steps ~ interval | part.of.week, layout = c(1, 2),
             type = &quot;l&quot;,

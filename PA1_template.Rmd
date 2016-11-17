@@ -14,6 +14,8 @@ activity <- read.csv("activity.csv")
 str(activity)
 ```
 
+No preprocessing is necessary. The columns of the data already have sensible names. There are NAs in the data but we'll take care of them later.
+
 ## What is mean total number of steps taken per day?
 
 Group first by date, then summarize by counting the number of steps for each group:
